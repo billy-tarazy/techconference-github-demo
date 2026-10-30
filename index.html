@@ -1,12 +1,280 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Tech Conference 2026</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Tech Conference 2026 — a hands-on event exploring GitHub, GitHub Copilot, and GitHub Actions." />
+  <title>Tech Conference 2026 | Build What's Next</title>
+  <style>
+    :root {
+      --bg: #080c19;
+      --panel: #10172a;
+      --panel-2: #151f34;
+      --ink: #f7f9ff;
+      --muted: #a4b0c8;
+      --line: rgba(181, 205, 255, .16);
+      --cyan: #60e6e1;
+      --violet: #a88aff;
+      --coral: #ffb69a;
+      --max: 1120px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; color: var(--ink); background: var(--bg);
+      font-family: "Segoe UI", Inter, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(var(--max), calc(100% - 48px)); margin-inline: auto; }
+    .eyebrow { color: var(--cyan); font-size: 12px; font-weight: 800; letter-spacing: .19em; text-transform: uppercase; }
+    .muted { color: var(--muted); }
+    header {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(8, 12, 25, .84); backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav { min-height: 76px; display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; font-size: 16px; font-weight: 800; letter-spacing: -.025em; }
+    .logo { display: grid; place-items: center; width: 39px; height: 39px; border-radius: 12px; background: linear-gradient(135deg, var(--cyan), var(--violet)); color: #0a1423; font-weight: 900; font-size: 15px; }
+    .nav-links { display: flex; gap: 31px; align-items: center; color: #c6d1e6; font-weight: 600; font-size: 13px; }
+    .nav-links a:hover { color: var(--cyan); }
+    .nav-cta { border: 1px solid rgba(96,230,225,.46); border-radius: 100px; padding: 11px 17px; color: var(--cyan) !important; }
+    .nav-cta:hover { background: rgba(96,230,225,.1); }
+
+    .hero {
+      position: relative; overflow: hidden; isolation: isolate;
+      background: radial-gradient(ellipse at 88% 28%, rgba(108, 94, 215, .20), transparent 42%),
+                  radial-gradient(ellipse at 42% 0%, rgba(53, 202, 199, .12), transparent 46%);
+      border-bottom: 1px solid var(--line);
+    }
+    .hero::before { content: ""; position: absolute; inset: 0; z-index: -1;
+      opacity: .30; background-image: radial-gradient(#65708b 0.75px, transparent 0.75px);
+      background-size: 27px 27px; mask-image: linear-gradient(to right, transparent 3%, black 75%);
+    }
+    .hero-inner { display: grid; grid-template-columns: 1.12fr .88fr; gap: 36px; align-items: center; min-height: 582px; padding-block: 80px 86px; }
+    .pill { display: inline-flex; align-items: center; gap: 9px; padding: 8px 13px; border: 1px solid rgba(96,230,225,.23); border-radius: 99px; background: rgba(96,230,225,.07); color: #d6fdfa; font-size: 11px; font-weight: 750; letter-spacing: .06em; text-transform: uppercase; }
+    .live-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 0 4px rgba(96,230,225,.12); }
+    h1 { margin: 25px 0 16px; font-size: clamp(52px, 5.6vw, 82px); line-height: 1.055; letter-spacing: -.067em; font-weight: 850; }
+    .gradient-text { color: var(--cyan); background: linear-gradient(100deg, var(--cyan), #b0b5ff 88%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+    .lead { margin: 0 0 29px; max-width: 520px; font-size: 17px; line-height: 1.76; color: #bac7dd; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; border-radius: 11px; padding: 14px 21px; font-size: 14px; font-weight: 750; transition: transform .18s, background .18s; }
+    .button:hover { transform: translateY(-2px); }
+    .primary { background: var(--cyan); color: #071d24; box-shadow: 0 10px 32px rgba(96,230,225,.15); }
+    .secondary { border: 1px solid #364259; background: rgba(255,255,255,.035); color: #e9effb; }
+    .hero-notes { display: flex; gap: 25px; flex-wrap: wrap; margin-top: 34px; color: #aebbd1; font-size: 12px; font-weight: 650; }
+    .hero-notes span::before { content: "✦"; margin-right: 9px; color: var(--cyan); }
+
+    .art { min-height: 395px; position: relative; display: grid; place-items: center; }
+    .orbit { position: absolute; border: 1px solid rgba(148, 176, 236, .2); border-radius: 50%; width: 370px; aspect-ratio: 1; transform: rotate(-25deg); }
+    .orbit::before, .orbit::after { content: ""; position: absolute; width: 10px; height: 10px; border-radius: 50%; }
+    .orbit::before { background: var(--cyan); top: 12%; left: 14%; box-shadow: 0 0 18px var(--cyan); }
+    .orbit::after { background: var(--violet); bottom: 11%; right: 12%; box-shadow: 0 0 18px var(--violet); }
+    .orbit.two { width: 284px; border-style: dashed; opacity: .54; transform: rotate(35deg); }
+    .ticket { position: relative; z-index: 1; width: min(360px, 100%); transform: rotate(-7deg); border-radius: 20px; overflow: hidden; border: 1px solid rgba(208,218,255,.25); background: linear-gradient(145deg, #1c2945, #101b33 72%); box-shadow: 0 24px 80px rgba(0,0,0,.4), 0 0 100px rgba(96,230,225,.065); }
+    .ticket-top { display: flex; align-items: center; justify-content: space-between; padding: 24px 25px 18px; border-bottom: 1px dashed rgba(175,192,225,.26); }
+    .ticket-top .mini-logo { display: grid; place-items: center; width: 46px; height: 46px; color: #071923; border-radius: 12px; background: var(--cyan); font-size: 16px; font-weight: 900; }
+    .ticket-top small { color: var(--cyan); font-size: 10px; font-weight: 800; letter-spacing: .18em; }
+    .ticket-body { padding: 26px 27px 29px; }
+    .ticket-body .big { font-size: 36px; line-height: 1.03; font-weight: 850; letter-spacing: -.055em; }
+    .ticket-body .big span { color: var(--cyan); }
+    .ticket-body p { color: #aebbd6; font-size: 13px; margin: 15px 0 27px; }
+    .ticket-bottom { display: flex; justify-content: space-between; gap: 14px; align-items: end; }
+    .ticket-bottom b { font-size: 11px; color: #effaff; letter-spacing: .065em; }
+    .bars { display: flex; align-items: stretch; gap: 4px; height: 32px; opacity: .85; }
+    .bars i { display: inline-block; width: 3px; background: #c3d4ed; }
+    .float-label { position: absolute; z-index: 2; padding: 11px 14px; border: 1px solid rgba(176,196,235,.25); border-radius: 12px; background: #121d34; box-shadow: 0 18px 45px rgba(0,0,0,.25); color: #dceaff; font-size: 12px; font-weight: 800; }
+    .float-label.one { top: 15px; right: 0; transform: rotate(6deg); }
+    .float-label.two { left: 1px; bottom: 4px; transform: rotate(3deg); }
+    .float-label span { color: var(--cyan); }
+
+    main section { padding-block: 83px; }
+    .section-head { display: flex; gap: 26px; align-items: end; justify-content: space-between; margin-bottom: 33px; }
+    .section-head h2 { margin: 9px 0 0; font-size: clamp(30px, 3.4vw, 46px); line-height: 1.14; letter-spacing: -.05em; }
+    .section-head p { margin: 0 0 5px; max-width: 350px; color: var(--muted); font-size: 14px; }
+    .stat-strip { display: grid; grid-template-columns: repeat(3,1fr); border: 1px solid var(--line); border-radius: 16px; background: rgba(255,255,255,.018); overflow: hidden; margin-top: -27px; position: relative; z-index: 3; }
+    .stat { padding: 24px 29px; border-right: 1px solid var(--line); }
+    .stat:last-child { border: 0; }
+    .stat strong { display: block; font-size: 24px; line-height: 1.1; font-weight: 850; letter-spacing: -.04em; }
+    .stat span { display: block; margin-top: 8px; color: var(--muted); font-size: 12px; }
+    .agenda-grid { display: grid; grid-template-columns: 1.3fr .7fr; gap: 25px; }
+    .agenda-list { border: 1px solid var(--line); border-radius: 17px; overflow: hidden; background: rgba(255,255,255,.023); }
+    .session { display: grid; grid-template-columns: 85px 1fr auto; gap: 17px; align-items: center; padding: 24px 26px; border-bottom: 1px solid var(--line); }
+    .session:last-child { border: none; }
+    .session time { color: var(--cyan); font-size: 15px; font-weight: 850; }
+    .session h3 { margin: 0 0 3px; font-size: 16px; letter-spacing: -.025em; }
+    .session p { margin: 0; color: var(--muted); font-size: 12px; }
+    .tag { padding: 5px 9px; border: 1px solid rgba(168,138,255,.25); background: rgba(168,138,255,.10); color: #c8baff; border-radius: 6px; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; white-space: nowrap; }
+    .tag.break { border-color: rgba(255,182,154,.25); background: rgba(255,182,154,.1); color: var(--coral); }
+    .agenda-aside { position: relative; border: 1px solid rgba(96,230,225,.2); border-radius: 17px; background: linear-gradient(145deg, #143339, #111b2c 74%); padding: 31px; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
+    .agenda-aside::after { content:"</>"; position: absolute; right:-7px; bottom:-68px; font-size: 170px; font-weight: 900; color: rgba(96,230,225,.08); letter-spacing: -.13em; }
+    .agenda-aside h3 { margin: 12px 0 9px; font-size: 27px; line-height: 1.18; letter-spacing: -.045em; }
+    .agenda-aside p { color: #b3c8ce; font-size: 13px; }
+    .agenda-aside a { display: inline-flex; align-self: start; gap: 9px; color: var(--cyan); border-bottom: 1px solid var(--cyan); font-size: 13px; font-weight: 800; padding-bottom: 6px; z-index: 1; }
+
+    .speaker-section { background: #0c1222; border-block: 1px solid var(--line); }
+    .speakers { display: grid; grid-template-columns: repeat(3,1fr); gap: 19px; }
+    .person { border: 1px solid var(--line); border-radius: 17px; overflow: hidden; background: #131d30; transition: transform .2s, border-color .2s; }
+    .person:hover { transform: translateY(-4px); border-color: rgba(96,230,225,.4); }
+    .portrait { min-height: 166px; position: relative; display: grid; place-items: center; overflow: hidden; }
+    .portrait::after { content:""; position:absolute; border:1px solid rgba(255,255,255,.16); border-radius:50%; width:215px; height:215px; right:-46px; bottom:-110px; }
+    .portrait.one { background: linear-gradient(135deg, #1e696f, #142d49); }
+    .portrait.two { background: linear-gradient(135deg, #5a477e, #192f54); }
+    .portrait.three { background: linear-gradient(135deg, #6b4b43, #392749); }
+    .initials { font-size: 78px; color: rgba(255,255,255,.83); font-weight: 850; letter-spacing: -.07em; text-shadow: 0 5px 30px rgba(0,0,0,.18); }
+    .person-info { padding: 23px; }
+    .person-info h3 { margin: 0; font-size: 18px; letter-spacing: -.035em; }
+    .person-info p { margin: 7px 0 0; color: var(--muted); font-size: 13px; }
+    .person-info .role { color: var(--cyan); font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+
+    .venue-card { display: grid; grid-template-columns: 1fr 1fr; min-height: 330px; border: 1px solid var(--line); border-radius: 20px; overflow: hidden; background: #111b30; }
+    .venue-info { padding: 47px; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; }
+    .venue-info h3 { margin: 12px 0 13px; font-size: 37px; line-height: 1.14; letter-spacing: -.05em; }
+    .venue-info p { color: var(--muted); margin: 0 0 24px; font-size: 14px; }
+    .location { border-radius: 99px; padding: 8px 13px; background: rgba(96,230,225,.08); color: var(--cyan); font-size: 11px; font-weight: 800; }
+    .map-art { position: relative; min-height: 300px; overflow: hidden; background: radial-gradient(circle at 62% 50%,rgba(96,230,225,.2),transparent 37%),linear-gradient(135deg,#182743,#101927); }
+    .map-art::before { content:""; position:absolute; inset:0; background:repeating-linear-gradient(25deg,transparent 0 49px,rgba(188,211,255,.11) 50px 52px,transparent 53px 85px),repeating-linear-gradient(115deg,transparent 0 62px,rgba(188,211,255,.10) 63px 65px,transparent 66px 104px); }
+    .map-marker { position:absolute; left:53%; top:39%; transform:translate(-50%,-50%); height:78px; width:78px; border:1px solid rgba(96,230,225,.46); background:rgba(96,230,225,.09); border-radius:50%; display:grid; place-items:center; box-shadow: 0 0 0 28px rgba(96,230,225,.04); }
+    .map-marker::after { content:""; width:24px; height:24px; border-radius:50% 50% 50% 0; background:var(--cyan); transform:rotate(-45deg); }
+    .map-caption { position:absolute; left:50%; top:64%; transform:translateX(-50%); text-align:center; font-size:11px; font-weight:850; letter-spacing:.08em; color:#d6fff9; text-transform:uppercase; white-space:nowrap; }
+    footer { border-top: 1px solid var(--line); padding: 27px 0 34px; }
+    .foot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; color: #8694ae; font-size: 12px; }
+    .foot strong { color: #d7e6f7; }
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 28px; min-height: 0; padding-block: 75px 60px; }
+      .hero h1 { max-width: 750px; }
+      .art { max-width: 500px; width: 100%; margin: auto; }
+      .agenda-grid { grid-template-columns: 1fr; }
+      .agenda-aside { min-height: 240px; }
+      .nav-links { gap: 17px; }
+    }
+    @media (max-width: 630px) {
+      .wrap { width: min(var(--max), calc(100% - 32px)); }
+      .nav { min-height: 66px; }
+      .nav-links { gap: 14px; }
+      .nav-links a:not(.nav-cta) { display: none; }
+      .brand { font-size: 14px; }
+      .hero-inner { padding-block: 58px 65px; }
+      h1 { font-size: clamp(46px, 12vw, 67px); }
+      .lead { font-size: 15px; }
+      .art { min-height: 350px; }
+      .orbit { width: 310px; }
+      .orbit.two { width: 235px; }
+      .ticket { width: min(310px, 90%); }
+      .float-label.one { right: 0; top: 0; }
+      .float-label.two { left: 0; }
+      main section { padding-block: 58px; }
+      .section-head { align-items: flex-start; flex-direction: column; gap: 10px; }
+      .stat-strip { grid-template-columns: 1fr; margin-top: -24px; }
+      .stat { border-right: 0; border-bottom: 1px solid var(--line); padding: 18px 22px; }
+      .stat:last-child { border-bottom: 0; }
+      .session { grid-template-columns: 60px 1fr; padding: 19px 17px; gap: 11px; }
+      .session .tag { grid-column: 2; justify-self: start; }
+      .speakers { grid-template-columns: 1fr; }
+      .portrait { min-height: 125px; }
+      .venue-card { grid-template-columns: 1fr; }
+      .venue-info { padding: 30px; }
+      .map-art { min-height: 250px; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .button, .person { transition: none; } }
+  </style>
 </head>
 <body>
-  <h1>Tech Conference 2026</h1>
-  <p>Welcome to our conference!</p>
-  <p>Venue: Innovation Center, Main Hall</p>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="#top" aria-label="Tech Conference home"><span class="logo">TC</span> TECHCONF<span style="color:var(--cyan)">/26</span></a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#agenda">Agenda</a>
+        <a href="#speakers">Speakers</a>
+        <a href="#venue">Venue</a>
+        <a class="nav-cta" href="#agenda">Explore the event ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="hero" id="top">
+    <div class="wrap hero-inner">
+      <div>
+        <span class="pill"><span class="live-dot"></span> Tech Conference · 2026</span>
+        <h1>Build what's<br /><span class="gradient-text">next.</span></h1>
+        <p class="lead">One day. Big ideas. Real-world skills. Join us for a celebration of collaboration, open source, and the tools changing how we build.</p>
+        <div class="actions">
+          <a class="button primary" href="#agenda">Explore the agenda <span aria-hidden="true">↗</span></a>
+          <a class="button secondary" href="#speakers">Meet the speakers <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="hero-notes"><span>GitHub</span><span>GitHub Copilot</span><span>GitHub Actions</span></div>
+      </div>
+      <div class="art" aria-label="Decorative Tech Conference 2026 admission pass">
+        <div class="orbit"></div><div class="orbit two"></div>
+        <div class="float-label one"><span>●</span> COLLABORATE</div>
+        <div class="ticket">
+          <div class="ticket-top"><span class="mini-logo">TC</span><small>ACCESS PASS / 2026</small></div>
+          <div class="ticket-body">
+            <div class="big">TECH<br /><span>CONFERENCE.</span></div>
+            <p>Ideas connect. Developers create.<br />The future ships together.</p>
+            <div class="ticket-bottom"><b>INNOVATION CENTER<br />MAIN HALL</b><div class="bars" aria-hidden="true"><i style="height:100%"></i><i style="height:70%"></i><i style="height:100%"></i><i style="height:50%"></i><i style="height:85%"></i><i style="height:100%"></i><i style="height:65%"></i><i style="height:100%"></i><i style="height:45%"></i><i style="height:100%"></i><i style="height:75%"></i><i style="height:100%"></i><i style="height:55%"></i><i style="height:85%"></i></div></div>
+          </div>
+        </div>
+        <div class="float-label two">&lt;/&gt; <span>KEEP BUILDING</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap stat-strip" aria-label="Conference highlights">
+    <div class="stat"><strong>01 / Day</strong><span>Focused learning and fresh ideas</span></div>
+    <div class="stat"><strong>03 / Topics</strong><span>GitHub · Copilot · Actions</span></div>
+    <div class="stat"><strong>∞ / Ideas</strong><span>Connect, learn, and build together</span></div>
+  </div>
+
+  <main>
+    <section id="agenda" class="wrap">
+      <div class="section-head">
+        <div><div class="eyebrow">01 / The schedule</div><h2>A day packed with<br />possibility.</h2></div>
+        <p>From your first repository to smarter workflows, follow the conversations that matter.</p>
+      </div>
+      <div class="agenda-grid">
+        <div class="agenda-list">
+          <div class="session"><time>09:00</time><div><h3>Welcome &amp; kickoff</h3><p>Conference team · Opening remarks</p></div><span class="tag">Opening</span></div>
+          <div class="session"><time>10:00</time><div><h3>Introduction to GitHub</h3><p>Bilal AlTarazy · Collaborate with confidence</p></div><span class="tag">Session</span></div>
+          <div class="session"><time>11:00</time><div><h3>Coffee &amp; connections</h3><p>Meet fellow attendees and share ideas</p></div><span class="tag break">Break</span></div>
+          <div class="session"><time>13:00</time><div><h3>GitHub Copilot in action</h3><p>Sarah Johnson · Build faster with AI</p></div><span class="tag">Session</span></div>
+          <div class="session"><time>14:00</time><div><h3>Automate with GitHub Actions</h3><p>John Smith · From commit to workflow</p></div><span class="tag">Session</span></div>
+        </div>
+        <aside class="agenda-aside">
+          <div><span class="eyebrow">Learn by doing</span><h3>More than<br />a conference.</h3><p>Learn the tools. Share what you build. Leave with a new perspective on collaboration.</p></div>
+          <a href="#speakers">Get to know the speakers <span aria-hidden="true">↗</span></a>
+        </aside>
+      </div>
+    </section>
+
+    <section id="speakers" class="speaker-section">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="eyebrow">02 / The people</div><h2>Meet the speakers.</h2></div>
+          <p>Three voices, three perspectives, and a shared passion for building better software.</p>
+        </div>
+        <div class="speakers">
+          <article class="person"><div class="portrait one"><span class="initials" aria-hidden="true">BA</span></div><div class="person-info"><div class="role">GitHub fundamentals</div><h3>Bilal AlTarazy</h3><p>Introduction to GitHub</p></div></article>
+          <article class="person"><div class="portrait two"><span class="initials" aria-hidden="true">SJ</span></div><div class="person-info"><div class="role">AI-assisted development</div><h3>Sarah Johnson</h3><p>GitHub Copilot in action</p></div></article>
+          <article class="person"><div class="portrait three"><span class="initials" aria-hidden="true">JS</span></div><div class="person-info"><div class="role">Developer automation</div><h3>John Smith</h3><p>Automate with GitHub Actions</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="venue" class="wrap">
+      <div class="section-head">
+        <div><div class="eyebrow">03 / Find your way</div><h2>The place to connect.</h2></div>
+        <p>Great conversations start in the right room. Here's where the community comes together.</p>
+      </div>
+      <div class="venue-card">
+        <div class="venue-info"><span class="eyebrow">Event venue</span><h3>Innovation Center<br />Main Hall</h3><p>A space for people who love to learn, experiment, and create what's next.</p><span class="location">⌖ &nbsp;Tech Conference 2026</span></div>
+        <div class="map-art" aria-hidden="true"><div class="map-marker"></div><div class="map-caption">You belong here</div></div>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="wrap foot"><span><strong>TECHCONF / 26</strong> · Build what's next.</span><span>A demonstration website created for GitHub Pages.</span></div></footer>
 </body>
 </html>
