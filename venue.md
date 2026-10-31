@@ -7,4 +7,3 @@
 
 ## Attendee information
 Please check in at the registration desk before entering.
-Please check in at the registration desk before entering.
