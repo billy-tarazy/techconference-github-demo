@@ -7,6 +7,4 @@
 
 ## Attendee information
 Please check in at the registration desk before entering.
-
-## Parking
-Visitor parking is available near the main entrance.
+Please check in at the registration desk before entering.
